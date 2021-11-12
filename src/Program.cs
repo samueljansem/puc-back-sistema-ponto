@@ -67,14 +67,14 @@ app.MapGet("/funcionarios", async ([FromServices] AppDbContext context) =>
     var funcionarios = await context.Funcionarios.ToListAsync();
 
     return Results.Ok(funcionarios);
-}).RequireAuthorization();
+}).AllowAnonymous();
 
 app.MapGet("/funcionarios/{id}", async ([FromServices] AppDbContext context, [FromRoute] Guid id) =>
 {
     var funcionario = await context.Funcionarios.FirstOrDefaultAsync(x => x.Id == id);
 
     return Results.Ok(funcionario);
-}).RequireAuthorization();
+}).AllowAnonymous();
 
 app.MapPost("/funcionarios", async ([FromServices] AppDbContext context, [FromBody] FuncionarioViewModel model) =>
 {
@@ -87,7 +87,7 @@ app.MapPost("/funcionarios", async ([FromServices] AppDbContext context, [FromBo
     await context.SaveChangesAsync();
 
     return Results.Ok(funcionario);
-}).RequireAuthorization();
+}).AllowAnonymous();
 
 app.MapPut("/funcionarios/{id}", async ([FromServices] AppDbContext context, [FromRoute] Guid id, [FromBody] FuncionarioViewModel model) =>
 {
@@ -100,7 +100,7 @@ app.MapPut("/funcionarios/{id}", async ([FromServices] AppDbContext context, [Fr
     await context.SaveChangesAsync();
 
     return Results.Ok(funcionario);
-}).RequireAuthorization();
+}).AllowAnonymous();
 
 app.MapDelete("/funcionarios/{id}", async ([FromServices] AppDbContext context, [FromRoute] Guid id, [FromBody] FuncionarioViewModel model) =>
 {
@@ -113,7 +113,7 @@ app.MapDelete("/funcionarios/{id}", async ([FromServices] AppDbContext context, 
     await context.SaveChangesAsync();
 
     return Results.Ok(funcionario);
-}).RequireAuthorization();
+}).AllowAnonymous();
 #endregion
 
 #region Pontos
@@ -122,7 +122,7 @@ app.MapGet("/funcionarios/{id}/pontos", async ([FromServices] AppDbContext conte
     var pontos = await context.Pontos.Where(x => x.funcionarioId == id).ToListAsync();
 
     return Results.Ok(pontos);
-}).RequireAuthorization();
+}).AllowAnonymous();
 
 app.MapPost("/funcionarios/{id}/pontos", async ([FromServices] AppDbContext context, [FromRoute] Guid id, [FromBody] PontoViewModel model) =>
 {
@@ -137,7 +137,7 @@ app.MapPost("/funcionarios/{id}/pontos", async ([FromServices] AppDbContext cont
     await context.SaveChangesAsync();
 
     return Results.Ok(ponto);
-}).RequireAuthorization();
+}).AllowAnonymous();
 
 app.MapPut("/funcionarios/{id}/pontos", async ([FromServices] AppDbContext context, [FromRoute] Guid id, [FromBody] PontoViewModel model) =>
 {
@@ -149,7 +149,7 @@ app.MapPut("/funcionarios/{id}/pontos", async ([FromServices] AppDbContext conte
     await context.SaveChangesAsync();
 
     return Results.Ok(ponto);
-}).RequireAuthorization();
+}).AllowAnonymous();
 
 app.MapDelete("/funcionarios/{id}/pontos", async ([FromServices] AppDbContext context, [FromRoute] Guid id, [FromBody] PontoViewModel model) =>
 {
@@ -161,7 +161,7 @@ app.MapDelete("/funcionarios/{id}/pontos", async ([FromServices] AppDbContext co
     await context.SaveChangesAsync();
 
     return Results.Ok(ponto);
-}).RequireAuthorization();
+}).AllowAnonymous();
 #endregion
 
 app.UseAuthorization();
